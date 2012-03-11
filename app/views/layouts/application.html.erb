@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CurrencyTracker</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag 'extensions', 'jquery.min', 'jquery_ujs', 'view_controller', 'simple_pie_chart', 'simple_line_chart', 'events' %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+
+<header>
+  <h1>CurrencyTracker</h1>
+  <% if current_user %>
+    <nav>
+      <ul>
+        <li><%= link_to "Currencies", currencies_path %></li>
+        <li><%= link_to "Countries", countries_path %></li>
+  	    <li><%= link_to 'Logout', destroy_user_session_path, :method => :delete %></li>
+      </ul>
+    </nav>
+  <% end %>
+</header>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<%= yield %>
+
+<footer>
+  CurrencyTracker &copy; Copyright 2011 by Smart Enterprises.
+</footer>
+</body>
+</html>

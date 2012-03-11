@@ -1,0 +1,19 @@
+<%= form_tag visit_countries_path, :remote => true, :id => 'visit-countries-form' do %>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Status</th>
+      <th><%= submit_tag 'Visit', :disable_with => 'Visiting...' %></th>
+    </tr>
+  <% @countries.each do |country| %>
+    <% visited = @user_countries[country.code] && @user_countries[country.code].visited? %>
+    <tr id="<%= country.code %>">
+      <td><%= country.name %></td>
+      <td><%= country.code %></td>
+      <td id="country_status_<%= country.code %>"><%= visited ? 'Visited' : 'Not Visited' %></td>
+      <td><%= check_box_tag 'country[]', country.code, visited, :id => %Q(country_code_#{country.code}), :disabled => visited %></td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>

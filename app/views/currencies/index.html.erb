@@ -1,0 +1,37 @@
+<section>
+  <div id="collected_currencies_chart" class="simple_pie_chart" width='300px' height='100px'>
+    <table>
+      <tr>
+        <th>Collected</th>
+        <td><%= collected_countries_count %></td>
+      </tr><tr>
+        <th>Not Collected</th>
+        <td><%= not_collected_countries_count %></td>
+      </tr>
+    </table>
+  </div>
+  <div id="collected_currencies_line_chart" class="simple_line_chart" width='300px' height='100px'>
+    <table>
+      <% current_user.user_countries.visited.group('DATE(created_at)').count.each do |item| %>
+        <tr>
+          <th><%= item[0] %></th>
+          <td><%= item[1] %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <h1>Currencies</h1>
+  <br/>
+  <br/>
+  <br/>
+  <%= form_tag currencies_path, :remote => true, :class => 'filter-form', :'data-type' => 'html', :'data-container' => '#currencies-list', :method => :get do %>
+    <%= text_field_tag 'q', params[:q], :placeholder => 'Filter keyword' %>
+  <% end %>
+  <button class="select-all" data-container="#currencies-list">Select All</button>
+  <br/>
+  <br/>
+  <div id="currencies-list">
+    <%= render :partial => 'list' %>
+  </div>
+</section>

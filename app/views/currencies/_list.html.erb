@@ -1,0 +1,19 @@
+<%= form_tag collect_currencies_path, :remote => true, :id => 'collect-currencies-form' do %>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Code</th>
+    <th>Status</th>
+    <th><%= submit_tag 'Collect', :disable_with => 'Collecting...' %></th>
+  </tr>
+  <% @currencies.each do |currency| %>
+  <% visited = @user_currencies[currency.code] && @user_currencies[currency.code].visited? %>
+    <tr>
+      <td><%= currency.name %></td>
+      <td><%= currency.code %></td>
+      <td id="currency_status_<%= currency.code %>"><%= visited ? 'Collected' : 'Not Collected' %></td>
+      <td><%= check_box_tag 'currency[]', currency.code, visited, :id => %Q(currency_code_#{currency.code}), :disabled => visited %></td>
+    </tr>
+  <% end %>
+</table>
+<% end %>
